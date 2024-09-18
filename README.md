@@ -31,7 +31,7 @@ Follow these steps to set up your development environment:
 ```
 3. **Configuration**
 
-      Create a YAML configuration file following the format described in sample-config.yaml. This file should list the endpoints you want to monitor.
+      Create a YAML configuration file following the format described in endpoints.yml. This file should list the endpoints you want to monitor.
 
 4. **Usage**
 
@@ -40,6 +40,7 @@ To run the application, use the following command:
    python health_monitor.py /path/to/your/config.yaml
 ```
 Replace /path/to/your/config.yaml with the path to your configuration file.
+
 5. **Running the Tests**
 ## Running the Automated Tests
 
@@ -91,6 +92,49 @@ If tests fail:
 
 
 •	PyYAML - Used for YAML file parsing.
+
+ ### My Understandings: 
+
+•	Input Parsing: The program reads a YAML configuration file that defines the properties of each HTTP endpoint, including the endpoint’s name, URL, HTTP method, headers, and body content.
+
+•	Endpoint Testing: Every 15 seconds, the program sends requests to the endpoints. An endpoint is considered “UP” if:
+
+•	The HTTP response status code is between 200 and 299.
+
+•	The response time is less than 500 milliseconds.
+
+If either condition is not met, the endpoint is considered “DOWN.”
+
+•	Logging Results: After each testing cycle, the program calculates the availability of each domain by comparing the number of “UP” results to the total number of tests performed for that domain. This percentage is logged to the console.
+
+### Doubts Arised:
+
+During the testing phase, I have  encountered a situation where it calculated availability percentages for monitored HTTP endpoints differ from expected values. For example:
+
+ **Expected Output after Test Cycle #1:**
+
+•	fetch.com has 33% availability percentage
+
+•	www.fetchrewards.com has 100% availability percentage
+
+ **Observed Output:**
+
+•	fetch.com has 67% availability percentage
+
+•	www.fetchrewards.com has 100% availability percentage
+
+### Steps Taken to Clarify the Doubt
+
+1.	Manual Testing: Conducted manual tests on the endpoints using tools like curl or requests in Python to independently verify their usual response codes and response times under similar conditions.
+
+2.	Debugging: Added detailed debugging statements throughout the health check script to log each step’s output, such as connection attempts, received response codes, and response timings.
+
+3.	Review Configuration: Re-examined the YAML configuration file to ensure that all endpoints are defined correctly and that no settings were altered unexpectedly.
+
+4.	Network Checks: Checked the network conditions during test runs to rule out issues related to network latency or unreliability.
+
+5.	Code Review: Conducted a thorough review of the script to ensure that all logic related to HTTP request handling, response evaluation, and availability calculation was functioning as intended.
+
 
 ## Authors
 
