@@ -20,41 +20,34 @@ What you need to install the software:
 Follow these steps to set up your development environment:
 
 1. **Clone the repository**
-   ```
-   git clone https://github.com/JayanthVishalReddy/Fetch_Takehome_Assignment.git
 ```
-    cd health-check-monitor
+git clone https://github.com/JayanthVishalReddy/Fetch_Takehome_Assignment.git
 ```
-2.	**Install the necessary Python packages** 
+### 2.	**Install Dependencies** 
 ```
-   python health_monitor.py /path/to/your/config.yaml
+pip install requests pyyaml
 ```
-3. **Configuration**
+### 3. **Configuration**
 
-      Create a YAML configuration file following the format described in endpoints.yml. This file should list the endpoints you want to monitor.
+Download YAML configuration file following the format described in endpoints.yml. This file should list the endpoints you want to monitor.
 
-4. **Usage**
 
-To run the application, use the following command:
-```
-   python health_monitor.py /path/to/your/config.yaml
-```
-Replace /path/to/your/config.yaml with the path to your configuration file.
-
-5. **Running the Tests**
 ## Running the Automated Tests
 
 ### Prerequisites
    Ensure you have all dependencies installed:
-```
-pip install -r requirements.txt
-```
-Running the Tests
 
-   Execute the automated tests by running the following command in the project directory:
+
+   Ensure that the config_path in the main() function of your Python script is set correctly
 ```
-pytest
+config_path = "endpoints.yml"
 ```
+
+To run the application, use the following command:
+```
+python healthchecks.py
+```
+
 **What the Tests Cover**
 
   •	**Endpoint Accessibility**: Verifies that all endpoints are accessible and return expected status codes.
@@ -71,7 +64,7 @@ pytest
 
 A test is considered passing if it meets all assertions without exceptions. Failing tests will output errors and stack traces relevant to the assertion failures.
 
-**Troubleshooting**
+### Troubleshooting
 
 If tests fail:
 
@@ -95,15 +88,15 @@ If tests fail:
 
  ### My Understandings: 
 
-•	Input Parsing: The program reads a YAML configuration file that defines the properties of each HTTP endpoint, including the endpoint’s name, URL, HTTP method, headers, and body content.
+•	**Input Parsing**: The program reads a YAML configuration file that defines the properties of each HTTP endpoint, including the endpoint’s name, URL, HTTP method, headers, and body content.
 
-•	Endpoint Testing: Every 15 seconds, the program sends requests to the endpoints. An endpoint is considered “UP” if:
+•	**Endpoint Testing**: Every 15 seconds, the program sends requests to the endpoints. An endpoint is considered “**UP**” if:
 
-•	The HTTP response status code is between 200 and 299.
+•	The HTTP response status code is between **200** and **299**.
 
-•	The response time is less than 500 milliseconds.
+•	The response time is less than **500** milliseconds.
 
-If either condition is not met, the endpoint is considered “DOWN.”
+If either condition is not met, the endpoint is considered “**DOWN.**”
 
 •	Logging Results: After each testing cycle, the program calculates the availability of each domain by comparing the number of “UP” results to the total number of tests performed for that domain. This percentage is logged to the console.
 
